@@ -12,3 +12,5 @@ const seedDatabase = async () => {
 };
 
 seedDatabase();
+
+// try in the terminal -> node seed/index
