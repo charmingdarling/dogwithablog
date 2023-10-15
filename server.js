@@ -86,7 +86,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // - `app.use()` is used to integrate these routes into your main express app
 // - if, for example, the routes in "model1-routes" are defined to handle requests starting with `/model1`, then any request to paths starting with `/model1` will be handled by the routes defined in that file
 
-app.use(require("./controllers/model1-routes"));
+app.use(require("./controllers/blog-routes"));
 // ? End -------------------------------------- ? //
 
 // ? Start -------------------------------------- ? //
