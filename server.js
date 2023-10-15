@@ -1,11 +1,43 @@
 // Import the express dependency
 const express = require("express");
+
 // Imports the build-in `path` module, which provides utilities for working with the file and directory paths.
 const path = require("path");
+
 // Import sequelize connection,modularizing routes that were separated into different files for better organization and maintainability
 const sequelize = require("./config/databaseConnection");
 
+// Importing express handlebars (this is a Node.js module)
 const exphbs = require("express-handlebars");
+
+// Import the handlebars module
+const handlebars = require("handlebars");
+
+// Creating an instance of an Express Handlebars engine with additional configuration options.
+
+// Example code:
+// const hbs = exphbs.create({
+//   extname: 'hbs', // Set the file extension for templates
+//   layoutsDir: 'views/layouts/', // Specify the directory for layout templates
+//   defaultLayout: 'main', // Set the default layout template
+//   helpers: {
+//     // Define custom Handlebars helpers
+//     formatDate: function (date) {
+//       // Custom logic to format a date
+//       return new Intl.DateTimeFormat('en-US').format(date);
+//     },
+//     // More helpers...
+//   },
+// });
+
+// In the example above:
+// extname: Sets the file extension for template files to '.hbs'.
+// layoutsDir: Specifies the directory where layout templates are located.
+// defaultLayout: Sets the default layout template to 'main'.
+// helpers: Defines custom Handlebars helpers that can be used in templates.
+// By creating an instance of the Handlebars engine with specific configurations, you can tailor its behavior to suit the needs of your application. The hbs variable can then be used when configuring Express to set up Handlebars as the view engine, similar to what I explained in the previous response.
+
+const hbs = exphbs.create({});
 
 // Sets up the Express App
 const app = express();
