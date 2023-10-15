@@ -11,6 +11,8 @@ const app = express();
 // Specify the port express will run on
 const PORT = process.env.PORT || 3001;
 
+// ? Start -------------------------------------- ? //
+// ? -------------------------------------- ? //
 // `app.use()`: middleware function that has access to (req) and (res) and the next middleware function in the application's request-response cycle
 // `express.static()`: this is a built-in middleware function in express to serve static files, such as images, CSS files, and JavaScript files. It takes the root director from which to serve static assets.
 // `path.join(__dirname, "public")`:`path.join`
@@ -30,11 +32,33 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.static(path.join(__dirname, "public")));
 
-//Sets up the routes
+// ? End -------------------------------------- ? //
+
+// ? Start----------------------------------- ? //
+// Sets up the routes
+// `require("./controllers/model1-routes")`: imports the module located at a specific path, defined in the "model1-routes" file
+// `./controllers/model1-routes`: this assumes that the "model1-routes" file is located in the "controllers" directory and is named "model1-routes.js" or "model1-routes/index.js" if it is a directory
+// `app.use()`: this is an express method used to mount middleware functions or routes at a specified path. In this context, it is being used to mount the routes from "model1-routes" controller onto the main Express app
+// --- by using `app.use` with a router or a middleware, you are essentially saying, "use the provided router/middleware for any requests that match the specified path"
+
+// Putting it all together:
+// - the routes defined in "model1-routes" are encapsulated within a router or middleware object
+// - `app.use()` is used to integrate these routes into your main express app
+// - if, for example, the routes in "model1-routes" are defined to handle requests starting with `/model1`, then any request to paths starting with `/model1` will be handled by the routes defined in that file
 
 app.use(require("./controllers/model1-routes"));
+// ? End -------------------------------------- ? //
+
+// ? Start -------------------------------------- ? //
 
 // Sync sequelize models to the database, then turn on server
+// In Sequelize, the `force` option in the `sync` method determines whether to drop existing tables and re-create them when syncing the Sequelize models with the database.
+// `force: false` - when set `false` Sequelize won't drop any existing tables. It means that if hte tables already exist in the database, Sequelize will try to update them according to the changes in your Sequelize model definitions without dropping nad recreating the tables
+
+// Breakdown of the behavior based on the `force` option
+// - `force: true` - if it sets `true`, Sequelize will drop the existing tables and re-create them according to the current model definitions. This can be useful during development or when you want to reset the database to a clean state, but be careful in a production environment as it will result in data loss
+// - `force: false` - if it sets `false` (or not provided), Sequelize will attempt to alter the existing tables to match the current model definitions. It will add columns, modify data types, or make other change necessary, without dropping and recreating the entire table
+
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>
     console.log(`Now listening on: http://localhost:' +  ${PORT}`)
