@@ -13,5 +13,7 @@ router.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
+// router
+
 // Export the router for use in other files
 module.exports = router;
