@@ -1,9 +1,11 @@
 // Import the express dependency
 const express = require("express");
-//
+// Imports the build-in `path` module, which provides utilities for working with the file and directory paths.
 const path = require("path");
 // Import sequelize connection,modularizing routes that were separated into different files for better organization and maintainability
 const sequelize = require("./config/databaseConnection");
+
+const exphbs = require("express-handlebars");
 
 // Sets up the Express App
 const app = express();
