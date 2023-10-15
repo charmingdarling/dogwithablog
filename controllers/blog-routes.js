@@ -10,13 +10,13 @@ const Blog = require("./models/Blog");
 
 // Define routes using router.get(), router.post(), etc.
 // when a user accesses the root path ("/") of the application, this route handler will respond by sending the "index.html" file located in the "views" directory to the client's browser. This assumes that the file path is correctly specified, and the "index.html" file exists in the specified location.
+// ! Do I even need lines 14-17?
 router.get("/", async (req, res) => {
   // here, the index.html is rendered to user
   res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
-// Building a route that serializes all the blog object that it receives.
-
+// GET ALL route, serializes blog object that is receieved
 router.get("/", async (req, res) => {
   const blogData = await Blog.findAll().catch((err) => {
     res.json(err);
@@ -25,7 +25,20 @@ router.get("/", async (req, res) => {
   res.render("all", { blogs });
 });
 
-// router
+// GET ONE route,
+router.get("/blog/:id", async (req, res) => {
+  try {
+    const blogData = await Blog.findByPK(req.params.id);
+    if (!dishData) {
+      res.status(404).json({ message: "Unable to find a blog with this id." });
+      return;
+    }
+    const blog = blogData.get({ plain: true });
+    res.render("blog", blog);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // Export the router for use in other files
 module.exports = router;
