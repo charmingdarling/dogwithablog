@@ -7,8 +7,9 @@ const router = require("express").Router();
 const path = require("path");
 
 // Define routes using router.get(), router.post(), etc.
+// when a user accesses the root path ("/") of the application, this route handler will respond by sending the "index.html" file located in the "views" directory to the client's browser. This assumes that the file path is correctly specified, and the "index.html" file exists in the specified location.
 router.get("/", async (req, res) => {
-  // here, the index.html is rendered
+  // here, the index.html is rendered to user
   res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
