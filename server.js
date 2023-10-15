@@ -15,11 +15,13 @@ const PORT = process.env.PORT || 3001;
 app.use(express.static(path.join(__dirname, "public")));
 
 //Sets up the routes
-app.use(require("./controllers/dish-routes"));
+app.use(require("./controllers/model1-routes"));
 
 // Sync sequelize models to the database, then turn on server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`Now listening on: http://localhost:' +  ${PORT}`)
+  );
 });
 
 // Eventually cookies will also be here in Activity 14
