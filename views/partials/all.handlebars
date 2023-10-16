@@ -9,17 +9,19 @@
 
 <!-- We start using the built-in helper, #each. This helper will iterate over blog post -->
 <!-- `blogs` is referencing the const blogs in your router.get("/") of your blog-routes.js at line 24 -->
-{{#each blogs as |blogPosts|}}
+{{#each blogs as |blog|}}
 
   <!-- For each blogPost in the array of blogPost objects, the following <div> will be rendered. -->
   <div class="blogPost col-md-5">
     <!-- We use blogPost.id instead of <od> and <li> elements. -->
     <h2 class="blogPost-TitleEntry">
-      <a href="/blogPost/{{blogPost.id}}">{{blogPost.title}}</a>
+      <a href="/blog/{{blog.id}}">{{blog.title}}</a>
     </h2>
     <p>
       Author:
-      {{blogPost.author}}
+      {{blog.author}}
+      <br />
+      {{blog.created_on}}
       <!--Maybe the information eventually goes here, author? time created?-->
     </p>
   </div>
