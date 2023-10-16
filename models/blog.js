@@ -13,11 +13,11 @@ Blog.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    blog_titleEntry: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    blogBodyEntry: {
+    content: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,9 +25,15 @@ Blog.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    created_on: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     sequelize,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "Blog", // Name of the model, capitalize to reference consistently
