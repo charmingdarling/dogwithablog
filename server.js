@@ -1,14 +1,14 @@
-// Import the express dependency
-const express = require("express");
-
 // Imports the build-in `path` module, which provides utilities for working with the file and directory paths.
 const path = require("path");
 
-// Import sequelize connection,modularizing routes that were separated into different files for better organization and maintainability
-const sequelize = require("./config/databaseConnection");
+// Import the express dependency
+const express = require("express");
 
 // Importing express handlebars (this is a Node.js module)
 const exphbs = require("express-handlebars");
+
+// Import sequelize connection,modularizing routes that were separated into different files for better organization and maintainability
+const sequelize = require("./config/databaseConnection");
 
 // Import the handlebars module
 const handlebars = require("handlebars");
@@ -73,6 +73,9 @@ app.set("view engine", "handlebars");
 app.use(express.static(path.join(__dirname, "public")));
 
 // ? End ----------------//
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // ? Start Below -> app.use(require("./controllers/model1-routes"));----------- ? //
 // Sets up the routes
