@@ -3,17 +3,29 @@
 const router = require("express").Router();
 
 // IMPORTANT: Must put these in {} because you're importing aliases
-const { Blog } = require("../models"); 
+const { Blog } = require("../models");
 
 // GET ALL route, serializes blog object that is received
 router.get("/", async (req, res) => {
-  const blogData = await Blog.findAll({
-    include: [{ model: Blog }],
-  });
-  const blogs = blogData.map((blog) => blog.get({ plain: true }));
-  console.log(blogs);
-  res.render("all", { blogs });
+  try {
+    const blogData = await Blog.findAll({
+      include: [
+        {
+          model: Blog,
+        },
+      ],
+    });
+
+    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    console.log(blogs);
+    res.render("all", { blogs });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
+
+// ! Starting to think that I might need to define the relationships to then route them right...look at Activity 11 -> controllers -> home-routes.js
 
 // GET ONE route,
 router.get("/blog/:id", async (req, res) => {
