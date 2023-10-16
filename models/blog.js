@@ -30,7 +30,7 @@ Blog.init(
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: "blog",
+    modelName: "Blog", // Name of the model, capitalize to reference consistently
   }
 );
 
