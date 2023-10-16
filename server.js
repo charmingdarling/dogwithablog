@@ -10,8 +10,11 @@ const exphbs = require("express-handlebars");
 // Import sequelize connection,modularizing routes that were separated into different files for better organization and maintainability
 const sequelize = require("./config/databaseConnection");
 
+// Import controllers
+const routes = require("./controllers");
+
 // Import the handlebars module
-const handlebars = require("handlebars");
+const hbs = require("handlebars");
 
 // ? Start Below - const hbs = exphbs.create({});----------------//
 // Creating an instance of an Express Handlebars engine with additional configuration options.
@@ -91,6 +94,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(require("./controllers/blog-routes"));
 // ? End -------------------------------------- ? //
+
+// Mounting the routes defined in the `routes` module as middleware in  your Express app
+// This means that the routes defined in the `routes` module will be used to handle incoming HTTP requests
+app.use(routes);
 
 // ? Start -------------------------------------- ? //
 
