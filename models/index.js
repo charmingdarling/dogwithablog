@@ -1,7 +1,5 @@
 // Import your models from other files
-const Blog = require("Blog");
-const model2 = require("./model2");
-const model3 = require("./model3");
+const Blog = require("./Blog");
 
 // Relationships are IDed here
 
@@ -9,4 +7,4 @@ const model3 = require("./model3");
 // - hasMany
 // - belongsToMany
 
-module.exports = { Blog, model2, model3 };
+module.exports = { Blog };
