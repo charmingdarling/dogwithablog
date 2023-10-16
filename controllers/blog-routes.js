@@ -3,7 +3,7 @@
 const router = require("express").Router();
 
 // IMPORTANT: Must put these in {} because you're importing aliases
-const { Blog } = require("../models");
+const { Blog, Post } = require("../models");
 
 // GET ALL route, serializes blog object that is received
 router.get("/", async (req, res) => {
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     const blogData = await Blog.findAll({
       include: [
         {
-          model: Blog,
+          model: Post,
         },
       ],
     });
@@ -30,8 +30,8 @@ router.get("/", async (req, res) => {
 // GET ONE route,
 router.get("/blog/:id", async (req, res) => {
   try {
-    const blogData = await Blog.findByPK(req.params.id);
-    if (!dishData) {
+    const blogData = await Blog.findByPk(req.params.id);
+    if (!blogData) {
       res.status(404).json({ message: "Unable to find a blog with this id." });
       return;
     }

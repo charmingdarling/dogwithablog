@@ -1,5 +1,6 @@
 // Import your models from other files
 const Blog = require("./Blog");
+const Post = require("./Post");
 const User = require("./User");
 
 // Relationships are IDed here
@@ -10,16 +11,26 @@ const User = require("./User");
 
 //! Do I use 'user_id' ? or 'username_id' or ??
 
-User.hasMany(Blog, {
-  foreignKey: 'user_id',
-});
+// In Blog.js
+Blog.hasMany(Post);
 
 Blog.belongsTo(User, {
-  foreignKey: 'user_id',
+  foreignKey: "user_id",
 });
 
-Blog.hasMany(Post, {
-  foreignKey: 
+// In Post.js
+Post.belongsTo(Blog);
+Post.belongsTo(User, {
+  foreignKey: "user_id",
 });
 
-module.exports = { Blog, User };
+// In User.js
+User.hasMany(Blog, {
+  foreignKey: "user_id",
+});
+
+User.hasMany(Post, {
+  foreignKey: "user_id",
+});
+
+module.exports = { Blog, User, Post };

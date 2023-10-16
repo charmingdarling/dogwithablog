@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/databaseConnection");
-
 class User extends Model {}
 
 User.init(
