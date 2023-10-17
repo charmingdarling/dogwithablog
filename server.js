@@ -4,6 +4,9 @@ const path = require("path");
 // Import the express dependency
 const express = require("express");
 
+// Import express-session
+const session = require("express-session");
+
 // Importing express handlebars (this is a Node.js module)
 const exphbs = require("express-handlebars");
 
@@ -13,8 +16,14 @@ const sequelize = require("./config/databaseConnection");
 // Import controllers
 const routes = require("./controllers");
 
-// // Import the handlebars module
-// const hbs = require("handlebars");
+// Import
+const helpers = require("./utils/helpers");
+
+const sess = {
+  secret: "Super secret secret",
+  resave: false,
+  saveUninitialized: false,
+};
 
 // ? Start Below - const hbs = exphbs.create({});----------------//
 // Creating an instance of an Express Handlebars engine with additional configuration options.
@@ -50,6 +59,8 @@ const app = express();
 
 // Specify the port express will run on
 const PORT = process.env.PORT || 3001;
+
+app.use(session(sess));
 
 // Set Handlebars as the default template engine
 app.engine("handlebars", hbs.engine);
