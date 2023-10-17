@@ -3,18 +3,12 @@
 const router = require("express").Router();
 
 // IMPORTANT: Must put these in {} because you're importing aliases
-const { Blog, Post } = require("../models");
+const { Blog, Post, User } = require("../models");
 
 // GET ALL route, serializes blog object that is received
 router.get("/", async (req, res) => {
   try {
-    const blogData = await Blog.findAll({
-      include: [
-        {
-          model: Post,
-        },
-      ],
-    });
+    const blogData = await Blog.findAll();
 
     const blogs = blogData.map((blog) => blog.get({ plain: true }));
     console.log(blogs);
@@ -36,7 +30,7 @@ router.get("/blog/:id", async (req, res) => {
       return;
     }
     const blog = blogData.get({ plain: true });
-    res.render("blogs", blog);
+    res.render("blog", blog);
   } catch (err) {
     res.status(500).json(err);
   }
