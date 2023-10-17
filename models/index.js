@@ -1,5 +1,5 @@
 // Import your models from other files
-const Blog = require("./Blog");
+const Blog = require("./Blog"); // ! Why is this underline?!
 const Post = require("./Post");
 const User = require("./User");
 
@@ -9,19 +9,25 @@ const User = require("./User");
 // - hasMany
 // - belongsToMany
 
-//! Do I use 'user_id' ? or 'username_id' or ??
-
 // In Blog.js
-Blog.hasMany(Post);
+Blog.hasMany(Post, {
+  foreignKey: "blog_id",
+  onDelete: "CASCADE",
+});
 
 Blog.belongsTo(User, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
 });
 
 // In Post.js
-Post.belongsTo(Blog);
+Post.belongsTo(Blog, {
+  foreignKey: "blog_id",
+});
+
 Post.belongsTo(User, {
   foreignKey: "user_id",
+  onDelete: "CASCADE",
 });
 
 // In User.js

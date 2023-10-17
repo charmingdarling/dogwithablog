@@ -13,6 +13,14 @@ Blog.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "User",
+        key: "id",
+      },
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
