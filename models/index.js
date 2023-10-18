@@ -1,13 +1,9 @@
 // Import your models from other files
-const Blog = require("./Blog"); // ! Why is this underline?!
+const Blog = require("./Blog"); 
 const Post = require("./Post");
 const User = require("./User");
 
 // Relationships are IDed here
-
-// - belongsTo
-// - hasMany
-// - belongsToMany
 
 // In Blog.js
 Blog.hasMany(Post, {
