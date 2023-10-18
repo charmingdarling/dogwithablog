@@ -1,0 +1,18 @@
+[
+  {
+    "user_id": 1,
+    "title": "Puppy Dog Eyes",
+    "content":
+      "Remember to give your human some of the biggest, saddest eyes when you want attention.",
+    "author": "Momo",
+    "created_on": "October 21, 2023 21:00:00"
+  },
+  {
+    "user_id": 2,
+    "title": "Puppy Parkour",
+    "content":
+      "I learned how to put my paws on the wall. Human says that eventually, I'll learn how to jump off the walls! I wonder if I can do it at home to drive Human nuts.",
+    "author": "Mochi",
+    "created_on": "October 20, 2023 21:00:00"
+  }
+]
