@@ -27,6 +27,7 @@ Blog.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // ! Debating if this is even useful for 'author'
     author: {
       type: DataTypes.STRING,
       allowNull: false,
