@@ -19,10 +19,23 @@ const routes = require("./controllers");
 // Import
 const helpers = require("./utils/helpers");
 
+// Add sequelize library connect-session
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
+// session creation
 const sess = {
   secret: "Super secret secret",
+  cookie: {
+    maxAge: 300000,
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+  },
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 // ? Start Below - const hbs = exphbs.create({});----------------//
@@ -50,9 +63,7 @@ const sess = {
 // helpers: Defines custom Handlebars helpers that can be used in templates.
 // By creating an instance of the Handlebars engine with specific configurations, you can tailor its behavior to suit the needs of your application. The hbs variable can then be used when configuring Express to set up Handlebars as the view engine, similar to what I explained in the previous response.
 
-const hbs = exphbs.create({});
-
-// ? End ----------------//
+const hbs = exphbs.create({ helpers });
 
 // Sets up the Express App
 const app = express();
@@ -66,7 +77,7 @@ app.use(session(sess));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-// ? Start Below -> app.use(express.static(path.join(__dirname, "public"))); --------------- ? //
+//  Start Below -> app.use(express.static(path.join(__dirname, "public"))); --------------- ? //
 // `app.use()`: middleware function that has access to (req) and (res) and the next middleware function in the application's request-response cycle
 // `express.static()`: this is a built-in middleware function in express to serve static files, such as images, CSS files, and JavaScript files. It takes the root director from which to serve static assets.
 // `path.join(__dirname, "public")`:`path.join`
@@ -83,10 +94,10 @@ app.set("view engine", "handlebars");
 // when a request is made for a static file (e.g. an image or a CSS file), express will look in the public directory and serve the file if it exists. This is a common practice for serving assets in web apps
 // - Example: If you have an image called `logo.png` in the "public" directory, it can be accessed in the browser at `http://yourdomain.com/logo.png`
 // - This middleware lets you serve static assets without having to create a specific route for each file
-
+//
+// V---- This is not needed, only if you're serving a directory
 app.use(express.static(path.join(__dirname, "public")));
-
-// ? End ----------------//
+//  End ----------------//
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -102,8 +113,6 @@ app.use(express.urlencoded({ extended: false }));
 // - the routes defined in "model1-routes" are encapsulated within a router or middleware object
 // - `app.use()` is used to integrate these routes into your main express app
 // - if, for example, the routes in "model1-routes" are defined to handle requests starting with `/model1`, then any request to paths starting with `/model1` will be handled by the routes defined in that file
-
-// ? End -------------------------------------- ? //
 
 // Mounting the routes defined in the `routes` module as middleware in  your Express app
 // This means that the routes defined in the `routes` module will be used to handle incoming HTTP requests
@@ -124,5 +133,3 @@ sequelize.sync({ force: false }).then(() => {
     console.log(`Now listening on: http://localhost:${PORT}`)
   );
 });
-
-// Eventually cookies will also be here in Activity 14
